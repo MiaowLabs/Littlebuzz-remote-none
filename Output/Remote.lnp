@@ -1,0 +1,17 @@
+".\Output\carstand.obj",
+".\Output\isr.obj",
+".\Output\main.obj",
+".\Output\i2c.obj",
+".\Output\led.obj",
+".\Output\mpu6050.obj",
+".\Output\nrf24l0102.obj",
+".\Output\outputdata.obj",
+".\Output\adc.obj",
+".\Output\delay.obj",
+".\Output\gpio.obj",
+".\Output\pwm.obj",
+".\Output\timer.obj",
+".\Output\uart.obj",
+".\Output\STARTUP.obj" 
+TO ".\Output\Remote" 
+PRINT(".\Listing\Remote.m51") RAMSIZE(256) 

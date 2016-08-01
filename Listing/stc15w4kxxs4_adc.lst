@@ -1,0 +1,371 @@
+C51 COMPILER V9.00   STC15W4KXXS4_ADC                                                      08/01/2016 14:34:05 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE STC15W4KXXS4_ADC
+OBJECT MODULE PLACED IN .\Output\stc15w4kxxs4_adc.obj
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE Driver\src\stc15w4kxxs4_adc.c BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP
+                    -;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\stc15w4kxxs4_adc.lst) OBJECT(.\Output\stc15w4kxxs4_adc.obj)
+
+line level    source
+
+   1          #define __STC15W4KxxS4_ADC_C__
+   2          // ==================================================================
+   3          
+   4          
+   5          // °üº­Í·ÎÄ¼þ
+   6          // ==================================================================
+   7          #include        "stc15w4kxxs4.h"
+*** WARNING C318 IN LINE 7 OF Driver\src\stc15w4kxxs4_adc.c: can't open file 'stc15w4kxxs4.h'
+   8          // ==================================================================
+   9          
+  10          
+  11          // =======================================================================================================
+             -===============
+  12          // =======================================================================================================
+             -===============
+  13          
+  14          
+  15          
+  16          #if (TEST_ADC && USE_ADC)
+*** WARNING C322 IN LINE 16 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+*** WARNING C322 IN LINE 16 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       TestAdc
+              * Ãè  Êö:       ADC²âÊÔ³ÌÐò
+              * ²Î  Êý:       ÎÞ
+              * ·µ»ØÖµ:       ÎÞ
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-11
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ²âÊÔADC£¬ÔÚÖ÷³ÌÐòÖÐµ÷ÓÃ
+              ********************************************************************************/
+              void TestAdc(void)
+              {
+                      uchar *_pAdcTestBuf;
+                      uchar _Error, _AdcChannel;      
+                      sADC_InitTypeDef * _spAdcStruct;
+                      
+                      _AdcChannel     = ADC_2|ADC_3|ADC_4|ADC_5|ADC_6|ADC_7;  // ÐèÒª¹¤×÷µÄADCÍ¨µÀ£¬B0~B7¹²8Î»£¬¿ÉÍ¬Ê±Ñ¡Ôñ¶àÎ»¡£ADC_
+             -0/ADC_1/ADC_2/ADC_3/ADC_4/ADC_5/ADC_6/ADC_7¡£
+              
+                      _spAdcStruct->ADC_ResultAdj     = HIGH_8B;              // ADC×ª»»Öµµ÷Õû·½Ê½£¬HIGH_8B(¸ß8Î» µÍ2Î»)/HIGH_2B(¸ß2Î» µÍ8Î»)¡£
+                      _spAdcStruct->ADC_Interrupt     = ENABLE;               // ADCÖÐ¶ÏÊ¹ÄÜ£¬        DISABL(¹Ø±Õ)/ENABLE(Ê¹ÄÜ)¡£
+                      _spAdcStruct->ADC_Priority      = PRIORITY_L;   // ADCÖÐ¶ÏÓÅÏÈ¼¶, PRIORITY_L(µÍ)/PRIORITY_H(¸ß)¡£
+                      _spAdcStruct->ADC_SlewRate      = SPEED_FAST;   // ADC×ª»»µÄËÙ¶È£¬0~3¹²ËÄµµ¡£SPEED_LOW(×îÂý)/SPEED_SLOW(Âý)/SPEE
+             -D_FAST(¿ì)/SPEED_SOON(×î¿ì)¡£
+                      
+                      _Error = InitializeADC(_AdcChannel,_spAdcStruct);       // ³õÊ¼»¯ADCÄ£¿é
+                      if (_Error)
+                      {
+                              // ³ö´í±¨¾¯´¦Àí
+                              _Error = 0;
+                      }
+                      
+                      _pAdcTestBuf = &sAdcValue.ResultBuf;                            // ¸³µØ»º³åÆ÷µÄÖ·Ö¸ÕëÖµ
+C51 COMPILER V9.00   STC15W4KXXS4_ADC                                                      08/01/2016 14:34:05 PAGE 2   
+
+                      
+                      _Error = GetAdcValue(_pAdcTestBuf, 2);                          // ÈË¹¤²éÑ¯ADC  
+                      if (_Error)
+                      {
+                              // ³ö´í±¨¾¯´¦Àí
+                              _Error = 0;
+                      }
+                      
+                      AdcRunControl(0);               // ¿ØÖÆADCÄ£¿éÔËÐÐ×´Ì¬
+                      AdcPowerControl(0);             // ¿ØÖÆADCÄ£¿éµçÔ´¿ª¹Ø  
+              }
+              #endif
+  60          
+  61          
+  62          
+  63          #if (USE_ADC)
+*** WARNING C322 IN LINE 63 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       InitializeADC
+              * Ãè  Êö:       ³õÊ¼»¯ADC
+              * ²Î  Êý:       ADC_Channel                                             ÐèÒª¹¤×÷µÄADCÍ¨µÀ£¬B0~B7¹²8Î»£¬¿ÉÍ¬Ê±Ñ¡Ôñ¶àÎ»¡£ ADC_0/ADC_1/ADC_2/ADC_3/ADC_4/A
+             -DC_5/ADC_6/ADC_7¡£
+              *                       __spAdcStruct->ADC_ResultAdj    ADC×ª»»Öµµ÷Õû·½Ê½£¬     HIGH_8B(¸ß8Î» µÍ2Î»)/HIGH_2B(¸ß2Î» µÍ8Î»)¡£
+              *                       __spAdcStruct->ADC_Interrupt    ADCÖÐ¶ÏÊ¹ÄÜ£¬   DISABL(¹Ø±Õ)/ENABLE(Ê¹ÄÜ)¡£
+              *                       __spAdcStruct->ADC_Priority             ADCÖÐ¶ÏÓÅÏÈ¼¶,  PRIORITY_L(µÍ)/PRIORITY_H(¸ß)¡£
+              *                       __spAdcStruct->ADC_SlewRate             ADC×ª»»µÄËÙ¶È£¬ 0~3¹²ËÄµµ¡£SPEED_LOW(×îÂý)/SPEED_SLOW(Âý)/SPEED_FAST(¿ì)/
+             -SPEED_SOON(×î¿ì)¡£
+              * ·µ»ØÖµ:       0:³õÊ¼»¯³É¹¦£¬1:ADCÍ¨µÀºÅ´íÎó£¬2:²ÎÊý´íÎó
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-10
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ³ÌÐòÖÐ²Î¿¼ÁËSTCµÄ×ÊÁÏ¼°´úÂë
+              ********************************************************************************/
+              uchar InitializeADC(uchar __AdcChannel, sADC_InitTypeDef *__spAdcStruct)
+              {
+                      uchar _AdcSpeed;
+                      
+                      // ¼ì²éÉèÖÃµÄÍ¨µÀºÅÓÐÃ»ÓÐ´íÎó
+                      if (__AdcChannel != 0)
+                      {
+                              if (__AdcChannel & (~ADC_PASSAGE))              return 1;       // Ê¹ÓÃÁËÎ´¿ªÍ¨µÄÍ¨µÀ£¬·µ»Ø´íÎó´úÂë1
+                      }
+                      if (__spAdcStruct->ADC_SlewRate & ~0x60)        return 2;       // ADC×ª»»µÄËÙ¶ÈÉèÖÃ´íÎó
+                      
+                      P1ASF = __AdcChannel;                                           // ÉèÖÃP1¿Ú(P1.0~P1.7)ÎªADCÊäÈë¶Ë¿Ú
+                      sAdcValue.InitChannel = __AdcChannel;           // ADCËùÓÐÐèÒª×ª»»µÄÍ¨µÀ£¬1ÎªÐèÒª×ª»»µÄÍ¨µÀ£¬0Îª²»×ª»»Í¨µÀ
+                      // ------------------------------------------
+              
+                      if (__AdcChannel & BIT0)        { P0M1 |=  0x01;        P0M0 &= ~BIT0; }        // ÉèÖÃ¶Ë¿ÚÎª(10)¸¡¿ÕÊäÈëÄ£Ê½
+                      if (__AdcChannel & BIT1)        { P0M1 |=  0x02;        P0M0 &= ~BIT1; }
+                      if (__AdcChannel & BIT2)        { P0M1 |=  0x04;        P0M0 &= ~BIT2; }
+                      if (__AdcChannel & BIT3)        { P0M1 |=  0x08;        P0M0 &= ~BIT3; }
+                      if (__AdcChannel & BIT4)        { P0M1 |=  0x10;        P0M0 &= ~BIT4; }
+                      if (__AdcChannel & BIT5)        { P0M1 |=  0x20;        P0M0 &= ~BIT5; }
+                      if (__AdcChannel & BIT6)        { P0M1 |=  0x40;        P0M0 &= ~BIT6; }
+                      if (__AdcChannel & BIT7)        { P0M1 |=  0x80;        P0M0 &= ~BIT7; }
+                      
+                      _AdcSpeed = __spAdcStruct->ADC_SlewRate;        // ADC×ª»»ËÙ¶È
+                      sAdcValue.ConvertSpeed = _AdcSpeed;
+                      
+                      // ------------------------------------------
+                      if (__spAdcStruct->ADC_ResultAdj)       CLK_DIV |=  ADRJ;               // 1:ADC_RES[1:0]´æ·Å¸ß2Î»Öµ£¬ADC_RESL[7:0]´æ·ÅµÍ8Î»
+C51 COMPILER V9.00   STC15W4KXXS4_ADC                                                      08/01/2016 14:34:05 PAGE 3   
+
+             -Öµ
+                      else                                                            CLK_DIV &= ~ADRJ;               // 0:ADC_RES[7:0]´æ·Å¸ß8Î»Öµ£¬ADC_RESL[1:0]´æ·ÅµÍ2Î»Öµ
+                      
+                  ADC_RES = 0;        // Çå³ýADC½á¹û¼Ä´æÆ÷£¬¸ß×Ö½Ú
+                      ADC_RESL = 0;   // Çå³ýADC½á¹û¼Ä´æÆ÷£¬µÍ×Ö½Ú
+                      ADC_CONTR = 0;  // Çå³ýADC¿ØÖÆ¼Ä´æÆ÷µÄÉèÖÃ
+                      
+                      if (__AdcChannel == 0x00)                               // ²âÄÚ²¿BandGap²Î¿¼µçÑ¹
+                      {
+                              EADC = 0;                                                       // ¹Ø±ÕADCÖÐ¶Ï
+                              ADC_CONTR = ADC_POWER | _AdcSpeed;      // ADCµçÔ´£¬×ª»»ÆµÂÊ
+                      }
+                      else
+                      {
+                              if (__spAdcStruct->ADC_Interrupt)       // ADCÖÐ¶Ï·½Ê½
+                              {
+                                      if (__spAdcStruct->ADC_Priority)        PADC = 1;       // ¸ßÖÐ¶ÏÓÅÏÈ¼¶
+                                      else                                                            PADC = 0;       // µÍÖÐ¶ÏÓÅÏÈ¼¶
+                                      ADC_CONTR = ADC_POWER | _AdcSpeed | \
+                                                              ADC_START | __AdcChannel;                       // ADCµçÔ´£¬×ª»»ÆµÂÊ£¬A/DC¿ªÊ¼×ª»»£¬×ª»»µÄµÀºÅ(0~7)
+                              }
+                              else                                                                    // ADC²éÑ¯·½Ê½
+                              {
+                                      EADC = 0;                                                       // ¹Ø±ÕADCÖÐ¶Ï
+                                      ADC_CONTR = ADC_POWER | _AdcSpeed;      // ADCµçÔ´£¬×ª»»ÆµÂÊ
+                              }
+                      }       
+                  DelayAdc(2);                                        // ADCÉÏµç²¢ÑÓÊ±
+                      
+                      if (__spAdcStruct->ADC_Interrupt) EADC = 1;     // Ê¹ÄÜADCÖÐ¶Ï
+                              
+                      return 0;
+              }
+              #endif
+ 140          
+ 141          
+ 142          
+ 143          #if (USE_ADC)
+*** WARNING C322 IN LINE 143 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       GetAdcValue
+              * Ãè  Êö:       ²éÑ¯·½Ê½¶ÁÈ¡ADC½á¹û
+              * ²Î  Êý:       *__pResultBuf   ±£´æADC½á¹ûµÄÊý×éµØÖ·µÄÖ¸Õë£¬´æ´¢µÄµØÖ·×Ô¶¯¼ÆËã£¬Ã¿¸öÊ¹ÓÃµÄÍ¨µÀÕ¼Èý¸ö×Ö½Ú³¤¶È(Í¨µÀ
+             -ºÅ£¬½á¹û¸ß×Ö½Ú£¬½á¹ûµÍ×Ö½Ú)
+              *                       __Channel               Í¨µÀºÅ,0-7:²âADC¶Ë¿Ú(0-7)£¬8:²âÄÚ²¿BandGap²Î¿¼µçÑ¹
+              * ·µ»ØÖµ:       ´íÎó´úÂë 0:ÎÞ´íÎó£¬1:ÊäÈëµÄÍ¨µÀºÅ´íÎó£¬2:´ËÍ¨µÀÃ»ÓÐ¿ªÍ¨ADC¹¦ÄÜ¡£
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-16
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ³ÌÐòÖÐ²Î¿¼ÁËSTCµÄ×ÊÁÏ¼°´úÂë
+              ********************************************************************************/
+              uchar GetAdcValue(uchar *__pResultBuf, uchar __Channel)
+              {
+                  uchar _Eadc;
+                      uchar _ChPosition = 0x01;
+                      uchar _CurrentCh = 0;
+                      
+                      if (__Channel > 8)                                                      return 1;       // ÊäÈëµÄÍ¨µÀºÅ²ÎÊý´íÎó
+                      if (_ChPosition & ~sAdcValue.InitChannel)       return 2;       // ´ËÍ¨µÀÔÚADC³õÊ¼»¯Ê±Ã»ÓÐ±»¿ªÍ¨ADC¹¦ÄÜ
+                      
+                      _Eadc = EADC;                           // ÔÝ´æADCÖÐ¶Ï×´Ì¬
+                      EADC = 0;                                       // ¹Ø±ÕADCÖÐ¶Ï
+C51 COMPILER V9.00   STC15W4KXXS4_ADC                                                      08/01/2016 14:34:05 PAGE 4   
+
+              
+                      if (__Channel < 8)                      // ÐèÒª²É¼¯µÄADCÍ¨µÀºÅ0~7
+                      {
+                              // Ã¿Ò»¸öÍ¨µÀÕ¼Èý¸ö×Ö½Ú£¬¿ªÍ¨µÄÍ¨µÀ»á×Ô¶¯¼ÆËã´æ´¢µØÖ·¡£¿ÉÒÔ¸ù¾ÝÇé¿ö×¢ÊÍµô´Ë¶Î´úÂë¡£
+                              // -------------------------------------------------------------------------
+                              if (_CurrentCh < __Channel)             // ´æ´¢µ¥ÔªµÄµØÖ·ÒÆµ½Ïà¶ÔÓ¦µÄÎ»ÖÃ
+                              {
+                                      _CurrentCh++;
+                                      _ChPosition <<= 1;
+                                      if (_ChPosition & sAdcValue.InitChannel)
+                                              __pResultBuf += 3;                                      // Èç¹û´ËÍ¨µÀ£¬´æ´¢µ¥ÔªµÄµØÖ·ÏòºóÒÆ3¸öµ¥Ôª
+                              }
+                              // -------------------------------------------------------------------------
+                              ADC_CONTR = ADC_POWER | ADC_START | (sAdcValue.ConvertSpeed & 0x60) | __Channel;        // ADCµçÔ´£¬A/DC¿ªÊ¼×ª»
+             -»£¬×ª»»ÆµÂÊ£¬×ª»»µÄµÀºÅ(0~7)
+                      }
+                      else                                                    // ¼ì²âµÚ9Í¨µÀ£¬ÄÚ²¿BandGap²Î¿¼µçÑ¹
+                      {
+                              // Ã¿Ò»¸öÍ¨µÀÕ¼Èý¸ö×Ö½Ú£¬¿ªÍ¨µÄÍ¨µÀ»á×Ô¶¯¼ÆËã´æ´¢µØÖ·¡£¿ÉÒÔ¸ù¾ÝÇé¿ö×¢ÊÍµô´Ë¶Î´úÂë¡£
+                              // -------------------------------------------------------------------------
+                              if (_CurrentCh < 7)                     // ´æ´¢µ¥ÔªµÄµØÖ·ÒÆµ½×îºóµÄ3¸öµ¥ÔªÎ»ÖÃ
+                              {
+                                      _CurrentCh++;
+                                      _ChPosition <<= 1;
+                                      if (_ChPosition & sAdcValue.InitChannel)
+                                              __pResultBuf += 3;                                      // Èç¹û´ËÍ¨µÀ£¬´æ´¢µ¥ÔªµÄµØÖ·ÏòºóÒÆ3¸öµ¥Ôª
+                              }
+                              // -------------------------------------------------------------------------
+                              P1ASF = 0;
+                              ADC_CONTR = ADC_POWER | ADC_START | (sAdcValue.ConvertSpeed & 0x60);    // ADCµçÔ´£¬A/DC¿ªÊ¼×ª»»£¬×ª»»ÆµÂÊ
+                      }
+                      
+                      NOP(8);                                                         // µÈ´ý4¸öNOP@11.0592MHz
+                      while (!(ADC_CONTR & ADC_FLAG));        // µÈ´ýADC×ª»»Íê³É
+                      ADC_CONTR &= ~ADC_FLAG;                         // Çå³ýADCÖÐ¶Ï±êÖ¾
+                      
+                      *__pResultBuf++ = __Channel;            // ±£´æADCÍ¨µÀºÅ
+                      *__pResultBuf++ = ADC_RES;                      // ¶ÁÈ¡ADC½á¹û¼Ä´æÆ÷£¬¸ß×Ö½Ú
+                      *__pResultBuf++ = ADC_RESL;                     // ¶ÁÈ¡ADC½á¹û¼Ä´æÆ÷£¬µÍ×Ö½Ú
+                      
+                      if (__Channel == 8) P1ASF = sAdcValue.InitChannel;
+                      
+                      EADC = _Eadc;           // »Ö¸´ADCÖÐ¶Ï×´Ì¬
+                  return 0;                   // ÎÞ´í
+              }
+              #endif
+ 211          
+ 212          
+ 213          
+ 214          #if (USE_ADC)
+*** WARNING C322 IN LINE 214 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       AdcPowerControl
+              * Ãè  Êö:       ADCÄ£¿éµçÔ´¿ª¹Ø¿ØÖÆ
+              * ²Î  Êý:       __Switch        0:¹Ø±ÕADCÄ£¿éµçÔ´£¬1:´ò¿ªADCÄ£¿éµçÔ´
+              * ·µ»ØÖµ:       ÎÞ
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-16
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ÎÞ
+              ********************************************************************************/
+              void AdcPowerControl(uchar __Switch)
+C51 COMPILER V9.00   STC15W4KXXS4_ADC                                                      08/01/2016 14:34:05 PAGE 5   
+
+              {
+                      if (__Switch)   ADC_CONTR |=  ADC_POWER;        // ´ò¿ªADCÄ£¿éµçÔ´
+                      else                    ADC_CONTR &= ~ADC_POWER;        // ¹Ø±ÕADCÄ£¿éµçÔ´
+              }
+              #endif
+ 231          
+ 232          
+ 233          
+ 234          #if (USE_ADC)
+*** WARNING C322 IN LINE 234 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       AdcRunCountrol
+              * Ãè  Êö:       ADCÄ£¿éÔËÐÐ×´Ì¬¿ØÖÆ
+              * ²Î  Êý:       __RunSate       0:ADCÍ£Ö¹×ª»»£¬1:¿ªÊ¼ÔËÐÐ£¬Æô¶¯ADC×ª»»
+              * ·µ»ØÖµ:       ÎÞ
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-16
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ÎÞ
+              ********************************************************************************/
+              void AdcRunControl(uchar __Switch)
+              {
+                      if (__Switch)   ADC_CONTR |=  ADC_START;        // ADCÄ£¿é¿ªÊ¼ÔËÐÐ
+                      else                    ADC_CONTR &= ~ADC_START;        // ADCÄ£¿éÍ£Ö¹ÔËÐÐ
+              }
+              #endif
+ 251          
+ 252          
+ 253          
+ 254          #if (USE_ADC)
+*** WARNING C322 IN LINE 254 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       ADC_Routine
+              * Ãè  Êö:       ADCÖÐ¶Ï·þÎñ³ÌÐò
+              * ²Î  Êý:       ÎÞ
+              * ·µ»ØÖµ:       ÎÞ
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-10
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ³ÌÐòÖÐ²Î¿¼ÁËSTCµÄ×ÊÁÏ¼°´úÂë
+              ********************************************************************************/
+              void ADC_Routine(void)                  interrupt ADC_VECTOR            // ²éÑ¯´ÎÐò: 05 ÖÐ¶ÏÏòÁ¿µØÖ·: 002BH     ÖÐ¶ÏÔ´: ADC(Ä£×ªÊý)
+              {
+                      static uchar _ChPosition=0x01;          // Ç°Ç°ADCÍ¨µÀºÅµÄÎ»ÖÃ(0x01~0x80)
+                      static uchar _ChNumber=0;                       // µ±Ç°µÄADCÍ¨µÀºÅ(0~7)
+                      static uchar *_pResultBuf;
+              
+                      ADC_CONTR &= ~ADC_FLAG;                         // Çå³ýADCÖÐ¶Ï±êÖ¾
+                  
+                      if (_ChNumber > 7)
+                      {
+                              _ChNumber = 0;                                                  // ÇÐ»»µ½µÚÒ»¸öÍ¨µÀ
+                              _ChPosition = 0x01;                                             // Ç°Ç°ADCÍ¨µÀºÅµÄÎ»ÖÃ(0x01~0x80)
+                              _pResultBuf = &sAdcValue.ResultBuf;             // ¸³µØ»º³åÆ÷µÄÖ·Ö¸ÕëÖµ
+                      }
+                      
+                      for (_ChNumber=0; _ChNumber<7; _ChNumber++)
+                      {
+                              if (_ChPosition & sAdcValue.InitChannel)        // Í¨µÀÓÐ¿ªÍ¨ADC¹¦ÄÜ
+                              {
+                                      *_pResultBuf++ = _ChNumber;             // ¶ÁÈ¡µ±Ç°µÄADCÍ¨µÀºÅ
+                                      *_pResultBuf++ = ADC_RES;               // ¶ÁÈ¡ADC½á¹û¼Ä´æÆ÷£¬¸ß×Ö½Ú
+C51 COMPILER V9.00   STC15W4KXXS4_ADC                                                      08/01/2016 14:34:05 PAGE 6   
+
+                                      *_pResultBuf++ = ADC_RESL;              // ÏÔÊ¾ADC½á¹û¼Ä´æÆ÷£¬µÍ×Ö½Ú
+                                      
+                                      ADC_CONTR = ADC_POWER | ADC_START | sAdcValue.ConvertSpeed | _ChNumber; // ADCµçÔ´£¬A/DC¿ªÊ¼×ª»»£¬×ª»»Æ
+             -µÂÊ£¬×ª»»µÄµÀºÅ(0~7)
+                              }
+                              _ChPosition<<=1;                                        // Ã»¿ªÍ¨ADC¹¦ÄÜ×ªµ½ÏÂÒ»¸öÍ¨µÀ
+                      }
+              }
+              #endif
+ 294          
+ 295          
+ 296          
+ 297          #if (USE_ADC)
+*** WARNING C322 IN LINE 297 OF Driver\src\stc15w4kxxs4_adc.c: unknown identifier
+              /********************************************************************************
+              * º¯ÊýÃû:       DelayAdc
+              * Ãè  Êö:       ³õ³õ»¯ADCÓÃÈí¼þÑÓÊ±³ÌÐò
+              * ²Î  Êý:       __Count         ÑÓÊ±Ê±¼äÖµ
+              * ·µ»ØÖµ:       ÎÞ
+              * °æ  ±¾:       V1.0
+              * ÈÕ  ÆÚ:       2015-09-10
+              * ×÷  Õß:       zenghouyun
+              * ±¸  ×¢:       ³ÌÐòÖÐ²Î¿¼ÁËSTCµÄ×ÊÁÏ¼°´úÂë
+              ********************************************************************************/
+              void DelayAdc(uint __Count)
+              {
+                  uint i;
+              
+                  while (__Count--)
+                  {
+                      i = 5000;                       // i=5000@11.0592MHz
+                      while (i--);
+                  }
+              }
+              #endif
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  9 WARNING(S),  0 ERROR(S)
