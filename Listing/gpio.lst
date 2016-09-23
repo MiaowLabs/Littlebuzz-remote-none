@@ -1,4 +1,4 @@
-C51 COMPILER V9.00   GPIO                                                                  08/01/2016 14:35:50 PAGE 1   
+C51 COMPILER V9.00   GPIO                                                                  09/01/2016 13:26:56 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE GPIO
@@ -33,27 +33,28 @@ line level    source
   23   1              //所有I/O口全设为准双向，弱上拉模式
   24   1              P0M0=0x00;
   25   1              P0M1=0x00;
-  26   1              P1M0=0x00;
-  27   1              P1M1=0x00;
-  28   1              P2M0=0x00;      
-  29   1              P2M1=0x00;
-  30   1              P3M0=0x00;
-  31   1              P3M1=0x00;      
-  32   1              P4M0=0x00;
-  33   1              P4M1=0x00;
-  34   1              P5M0=0x00;
-  35   1              P5M1=0x00;         
-  36   1              /*
-  37   1              //设置需要使用的PWM输出口为强推挽模式
-  38   1              P2M0=0x0e;
-  39   1              P2M1=0x00;
-  40   1              P3M0=0x80;
-  41   1              P3M1=0x00;        */
-  42   1      }
+  26   1              P1M0=0x40;
+  27   1              //P1M0=0x00;
+  28   1              P1M1=0x00;
+  29   1              P2M0=0x00;      
+  30   1              P2M1=0x00;
+  31   1              P3M0=0x00;
+  32   1              P3M1=0x00;      
+  33   1              P4M0=0x00;
+  34   1              P4M1=0x00;
+  35   1              P5M0=0x00;
+  36   1              P5M1=0x00;         
+  37   1              /*
+  38   1              //设置需要使用的PWM输出口为强推挽模式
+  39   1              P2M0=0x0e;
+  40   1              P2M1=0x00;
+  41   1              P3M0=0x80;
+  42   1              P3M1=0x00;        */
+  43   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     26    ----
+   CODE SIZE        =     27    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
@@ -61,6 +62,8 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
+
+C51 COMPILER V9.00   GPIO                                                                  09/01/2016 13:26:56 PAGE 2   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

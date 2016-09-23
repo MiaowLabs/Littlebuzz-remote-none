@@ -1,4 +1,4 @@
-C51 COMPILER V9.00   LED                                                                   08/01/2016 14:35:50 PAGE 1   
+C51 COMPILER V9.00   LED                                                                   09/01/2016 13:26:56 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE LED
@@ -20,13 +20,13 @@ line level    source
   10          void LEDInit(void)
   11          {
   12   1              ON_LED1;
-  13   1              ON_LED2;
+  13   1      
   14   1      }
   15          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =      5    ----
+   CODE SIZE        =      3    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

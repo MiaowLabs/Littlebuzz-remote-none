@@ -248,7 +248,7 @@ void check()
 		
 		if(temp1==0x2E&&temp2==0x11)
 		{
-			LED2=~LED2;
+			LED1=~LED1;
 			
 		}
 }

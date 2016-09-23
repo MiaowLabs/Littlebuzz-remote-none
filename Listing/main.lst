@@ -1,4 +1,4 @@
-C51 COMPILER V9.00   MAIN                                                                  08/01/2016 14:35:49 PAGE 1   
+C51 COMPILER V9.00   MAIN                                                                  09/01/2016 13:26:55 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
@@ -40,111 +40,118 @@ line level    source
   30   1              DisableInterrupts;//禁止总中断
   31   1      
   32   1              //CLK_DIV_1();    //设置MCU工作频率为内部RC时钟
-  33   1              DriversInit();          
-  34   1              ADCInit();
-  35   1              SW1=SW2=SW3=SW4=SW5=SW6=1;
-  36   1              Delaynms(10);
-  37   1              g_RxOffset=GetADCResult(5)-128;  //0-255
-  38   1          Delaynms(10);
-  39   1              g_RyOffset=GetADCResult(4)-128;  //记录上电时摇杆的数据作为中位修正，因为摇杆中位要为128即256/2      
-  40   1              Delaynms(10);
-  41   1              g_LxOffset=GetADCResult(2)-128;
-  42   1              Delaynms(10);
-  43   1              while(NRF24L01_Check())//检测不到24L01
-  44   1              {
-  45   2                      Delaynms(500);
-  46   2                      ON_LED4;;  
-  47   2                      Delaynms(500);
-  48   2                      OFF_LED4;; 
-  49   2              }
-  50   1              init_NRF24L01();         //初始化nRF24L01
-  51   1              
-  52   1              Delaynms(10);
-  53   1              ON_LED3 ;
-  54   1      
-C51 COMPILER V9.00   MAIN                                                                  08/01/2016 14:35:49 PAGE 2   
+  33   1              DriversInit();
+  34   1              BELL=1;
+  35   1              Delaynms(100);
+  36   1              BELL=0;         
+  37   1              ADCInit();                              
+  38   1              SW1=SW2=SW3=SW4=SW5=SW6=SW10=SW11=1;
+  39   1              Delaynms(10);
+  40   1              g_RxOffset=GetADCResult(5)-128;  //0-255
+  41   1          Delaynms(10);
+  42   1              g_RyOffset=GetADCResult(4)-128;  //记录上电时摇杆的数据作为中位修正，因为摇杆中位要为128即256/2      
+  43   1              Delaynms(10);
+  44   1              g_LxOffset=GetADCResult(2)-128;  
+  45   1              Delaynms(10);
+  46   1              while(NRF24L01_Check())//检测不到24L01
+  47   1              {
+  48   2                      Delaynms(500);
+  49   2                      ON_LED1;;  
+  50   2                      Delaynms(500);
+  51   2                      OFF_LED1;; 
+  52   2              }
+  53   1              init_NRF24L01();         //初始化nRF24L01
+  54   1              
+C51 COMPILER V9.00   MAIN                                                                  09/01/2016 13:26:55 PAGE 2   
 
-  55   1              while(1)
-  56   1              {  
-  57   2                      TxBuf[0]++;
-  58   2                      g_Leftx= GetADCResult(2);  //yaw                                
-  59   2                      Delaynms(10);
-  60   2                      g_Lefty= GetADCResult(3); //油门                                
-  61   2                      Delaynms(10);                                                           
-  62   2                      g_Righty=GetADCResult(4);                       
-  63   2              Delaynms(10);
-  64   2                      g_Rightx=GetADCResult(5);                       
-  65   2                      Delaynms(10);
-  66   2              
-  67   2              //失控：TxBuf[0]
-  68   2              //油门：TxBuf[1]
-  69   2          //俯仰：TxBuf[2]
-  70   2          //横滚：TxBuf[3]
-  71   2               //Yaw：TxBuf[4]
-  72   2                      if((g_Rightx-g_RxOffset)>=255){TxBuf[2]=255;}
-  73   2                      else if((g_Rightx-g_RxOffset)<=0){TxBuf[2]=0;}
-  74   2                      else{TxBuf[2]=g_Rightx-g_RxOffset;}
-  75   2                      
-  76   2                      if((g_Righty-g_RyOffset)>=255){TxBuf[3]=255;}
-  77   2                      else if((g_Righty-g_RyOffset)<=0){TxBuf[3]=0;}
-  78   2                      else{TxBuf[3]=g_Righty-g_RyOffset;}
-  79   2      
-  80   2                      if((g_Leftx-g_LxOffset)>=255){TxBuf[4]=255;}
-  81   2                      else if((g_Leftx-g_LxOffset)<=0){TxBuf[4]=0;}
-  82   2                      else{TxBuf[4]=g_Leftx-g_LxOffset;}
-  83   2      //              g_Lefty=0.5*g_Lefty_Last+0.5*g_Lefty;
-  84   2      //              g_Lefty_Last= g_Lefty;
-  85   2                      TxBuf[1]=g_Lefty;  //油门通道不需处理，直接发送AD检测的8位数据
+  55   1              Delaynms(10);
+  56   1              ON_LED1 ;
+  57   1              
+  58   1              while(1)
+  59   1              {  
+  60   2                      TxBuf[0]++;
+  61   2                      g_Leftx= GetADCResult(2);  //yaw                                
+  62   2                      Delaynms(10);
+  63   2                      g_Lefty= GetADCResult(3); //油门                                
+  64   2                      Delaynms(10);                                                           
+  65   2                      g_Righty=GetADCResult(5);                       
+  66   2              Delaynms(10);
+  67   2                      g_Rightx=GetADCResult(4);                       
+  68   2                      Delaynms(10);
+  69   2                      
+  70   2                      //Delaynms(200);
+  71   2                      //BELL=1;
+  72   2                      //Delaynms(200);
+  73   2              //失控：TxBuf[0]
+  74   2              //油门：TxBuf[1]
+  75   2          //俯仰：TxBuf[2]
+  76   2          //横滚：TxBuf[3]
+  77   2               //Yaw：TxBuf[4]
+  78   2                      g_Rightx=255-g_Rightx;
+  79   2                      if((g_Rightx-g_RxOffset)>=255){TxBuf[2]=255;}
+  80   2                      else if((g_Rightx-g_RxOffset)<=0){TxBuf[2]=0;}
+  81   2                      else{TxBuf[2]=g_Rightx-g_RxOffset;}
+  82   2                      
+  83   2                      if((g_Righty-g_RyOffset)>=255){TxBuf[3]=255;}
+  84   2                      else if((g_Righty-g_RyOffset)<=0){TxBuf[3]=0;}
+  85   2                      else{TxBuf[3]=g_Righty-g_RyOffset;}
   86   2      
-  87   2                      if(SW1==0){
-  88   3                              TxBuf[5]=1;}
-  89   2                              else{
-  90   3                              TxBuf[5]=0;}     //按键TxBuf[5]
-  91   2                      if(SW2==0){             
-  92   3                              TxBuf[6]=1;}
-  93   2                              else{
-  94   3                              TxBuf[6]=0;}     //按键TxBuf[6]
-  95   2                      if(SW3==0){
-  96   3                              TxBuf[7]=1;}    
-  97   2                              else{
-  98   3                              TxBuf[7]=0;}     //按键TxBuf[7]
-  99   2                      if(SW4==0){
- 100   3                              TxBuf[8]=1;}
- 101   2                              else{
- 102   3                              TxBuf[8]=0;}     //按键TxBuf[8]
- 103   2                      if(SW5==0){
- 104   3                              TxBuf[9]=1;}
- 105   2                              else{
- 106   3                              TxBuf[9]=0;}     //按键TxBuf[9]
- 107   2                      if(SW6==0){
- 108   3                              TxBuf[10]=1;}
- 109   2                              else{
- 110   3                              TxBuf[10]=0;}    //按键TxBuf[10]
- 111   2                      
- 112   2                      nRF24L01_TxPacket(TxBuf);//发射数据
- 113   2      
- 114   2                      Delaynms(50);
- 115   2                      check();
- 116   2                      
-C51 COMPILER V9.00   MAIN                                                                  08/01/2016 14:35:49 PAGE 3   
+  87   2                      if((g_Leftx-g_LxOffset)>=255){TxBuf[4]=255;}
+  88   2                      else if((g_Leftx-g_LxOffset)<=0){TxBuf[4]=0;}
+  89   2                      else{TxBuf[4]=g_Leftx-g_LxOffset;}
+  90   2      //              g_Lefty=0.5*g_Lefty_Last+0.5*g_Lefty;
+  91   2      //              g_Lefty_Last= g_Lefty;
+  92   2                      TxBuf[1]=g_Lefty;  //油门通道不需处理，直接发送AD检测的8位数据
+  93   2      
+  94   2                      if(SW1==0){
+  95   3                              TxBuf[5]=1;}
+  96   2                              else{
+  97   3                              TxBuf[5]=0;}     //按键TxBuf[5]
+  98   2                      if(SW2==0){             
+  99   3                              TxBuf[6]=1;}
+ 100   2                              else{
+ 101   3                              TxBuf[6]=0;}     //按键TxBuf[6]
+ 102   2                      if(SW3==0){
+ 103   3                              TxBuf[7]=1;}    
+ 104   2                              else{
+ 105   3                              TxBuf[7]=0;}     //按键TxBuf[7]
+ 106   2                      if(SW4==0){
+ 107   3                              TxBuf[8]=1;}
+ 108   2                              else{
+ 109   3                              TxBuf[8]=0;}     //按键TxBuf[8]
+ 110   2                      if(SW5==0){
+ 111   3                              TxBuf[9]=1;}
+ 112   2                              else{
+ 113   3                              TxBuf[9]=0;}     //按键TxBuf[9]
+ 114   2                      if(SW6==0){
+ 115   3                              TxBuf[10]=1;}
+ 116   2                              else{
+C51 COMPILER V9.00   MAIN                                                                  09/01/2016 13:26:55 PAGE 3   
 
- 117   2                               
- 118   2      #if 0//DEBUG_UART  //调试启用 预编译命令
+ 117   3                              TxBuf[10]=0;}    //按键TxBuf[10]
+ 118   2                      
+ 119   2                      nRF24L01_TxPacket(TxBuf);//发射数据
+ 120   2      
+ 121   2                      Delaynms(50);
+ 122   2                      check();
+ 123   2              
+ 124   2                               
+ 125   2      #if 0//DEBUG_UART  //调试启用 预编译命令
               
-                      OutData[0] = TxBuf[4];   
-                      OutData[1] = TxBuf[1];   
-                      OutData[2] = TxBuf[2];  
-                      OutData[3] = TxBuf[3];          
+                      OutData[0] = GetADCResult(2);    
+                      OutData[1] = GetADCResult(3);    
+                      OutData[2] = GetADCResult(4);   
+                      OutData[3] = GetADCResult(5);   
                       OutPut_Data();          
                                         
               #endif                  
- 127   2                                              
- 128   2              }
- 129   1      }
+ 134   2                                              
+ 135   2              }
+ 136   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    560    ----
+   CODE SIZE        =    595    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     22    ----
    PDATA SIZE       =   ----    ----

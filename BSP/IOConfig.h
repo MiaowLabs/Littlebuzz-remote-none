@@ -36,9 +36,7 @@ MCU硬件相关
 
 //LED
 sbit LED1 = P2^4;
-sbit LED2 = P2^5;
-sbit LED3 = P2^6;
-sbit LED4 = P2^7;
+
 
 //IIC
 sbit SCL  = P4^6;			//I2C时钟引脚定义
@@ -49,9 +47,12 @@ sbit BELL=P1^6;
 sbit SW1 = P5^0;
 sbit SW2 = P3^4;
 
-sbit SW3 = P3^3;
-sbit SW4 = P3^2;
-sbit SW5 = P2^3;
-sbit SW6 = P2^2;
+sbit SW3 = P0^2;
+sbit SW4 = P0^3;
+sbit SW5 = P0^4;
+sbit SW6 = P5^2;
+
+sbit SW10 = P2^1;
+sbit SW11 = P2^0;
 
 #endif 

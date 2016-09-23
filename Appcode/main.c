@@ -30,45 +30,52 @@ void main()
 	DisableInterrupts;//禁止总中断
 
 	//CLK_DIV_1();	  //设置MCU工作频率为内部RC时钟
-	DriversInit();		
-	ADCInit();
-	SW1=SW2=SW3=SW4=SW5=SW6=1;
+	DriversInit();
+	BELL=1;
+	Delaynms(100);
+	BELL=0;		
+	ADCInit();				
+	SW1=SW2=SW3=SW4=SW5=SW6=SW10=SW11=1;
 	Delaynms(10);
 	g_RxOffset=GetADCResult(5)-128;  //0-255
     Delaynms(10);
 	g_RyOffset=GetADCResult(4)-128;  //记录上电时摇杆的数据作为中位修正，因为摇杆中位要为128即256/2      
 	Delaynms(10);
-	g_LxOffset=GetADCResult(2)-128;
+	g_LxOffset=GetADCResult(2)-128;	 
 	Delaynms(10);
 	while(NRF24L01_Check())//检测不到24L01
 	{
 		Delaynms(500);
-		ON_LED4;;  
+		ON_LED1;;  
 		Delaynms(500);
-		OFF_LED4;; 
+		OFF_LED1;; 
 	}
 	init_NRF24L01();	 //初始化nRF24L01
 	
 	Delaynms(10);
-	ON_LED3	;
-
+	ON_LED1	;
+	
 	while(1)
 	{  
 		TxBuf[0]++;
-		g_Leftx= GetADCResult(2);  //yaw				
+		g_Leftx= GetADCResult(2); //yaw				
 		Delaynms(10);
 		g_Lefty= GetADCResult(3); //油门 				
 		Delaynms(10);								
-		g_Righty=GetADCResult(4);			
+		g_Righty=GetADCResult(5);			
     	Delaynms(10);
-		g_Rightx=GetADCResult(5);   			
+		g_Rightx=GetADCResult(4);   			
 		Delaynms(10);
-	
+		
+		//Delaynms(200);
+		//BELL=1;
+		//Delaynms(200);
 	//失控：TxBuf[0]
 	//油门：TxBuf[1]
     //俯仰：TxBuf[2]
     //横滚：TxBuf[3]
 	 //Yaw：TxBuf[4]
+		g_Rightx=255-g_Rightx;	   //左右纠正
 		if((g_Rightx-g_RxOffset)>=255){TxBuf[2]=255;}
 		else if((g_Rightx-g_RxOffset)<=0){TxBuf[2]=0;}
 		else{TxBuf[2]=g_Rightx-g_RxOffset;}
@@ -108,19 +115,27 @@ void main()
 			TxBuf[10]=1;}
 			else{
 			TxBuf[10]=0;}	 //按键TxBuf[10]
+		if(SW10==0){
+			TxBuf[11]=1;}
+			else{
+			TxBuf[11]=0;}	 //按键TxBuf[11]
+		if(SW11==0){
+			TxBuf[12]=1;}
+			else{
+			TxBuf[13]=0;}	 //按键TxBuf[10]
 		
 	  	nRF24L01_TxPacket(TxBuf);//发射数据
 
 		Delaynms(50);
 		check();
-		
+	
 			 
 #if 0//DEBUG_UART  //调试启用 预编译命令
 
-   	OutData[0] = TxBuf[4];	 
-   	OutData[1] = TxBuf[1];	 
-   	OutData[2] = TxBuf[2];	
-   	OutData[3] = TxBuf[3];  	
+   	OutData[0] = GetADCResult(2);	 
+   	OutData[1] = GetADCResult(3);	 
+   	OutData[2] = GetADCResult(4);	
+   	OutData[3] = GetADCResult(5);  	
    	OutPut_Data();		
 		 	  
 #endif	 		

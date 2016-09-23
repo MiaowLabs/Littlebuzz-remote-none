@@ -10,6 +10,6 @@
 void LEDInit(void)
 {
 	ON_LED1;
-	ON_LED2;
+
 }
 
