@@ -46,7 +46,7 @@
           <OutputName>Remote</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listing\</ListingPath>
@@ -361,6 +361,11 @@
               <FileType>1</FileType>
               <FilePath>.\Appcode\main.c</FilePath>
             </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Appcode\display.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -405,6 +410,11 @@
               <FileName>outputdata.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Common\src\outputdata.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Common\src\oled.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,0 +1,5 @@
+---- temp1 Matches (4 in 2 files) ----
+Main.c (e:\喵呜项目\四轴飞行器\littlebuzz-remote-none\appcode):unsigned char temp1,temp2;
+Nrf24l0102.c (e:\喵呜项目\四轴飞行器\littlebuzz-remote-none\common\src):	unsigned char temp1,temp2;
+Nrf24l0102.c (e:\喵呜项目\四轴飞行器\littlebuzz-remote-none\common\src):	temp1=SPI_Read(STATUS);
+Nrf24l0102.c (e:\喵呜项目\四轴飞行器\littlebuzz-remote-none\common\src):		if(temp1==0x2E&&temp2==0x11)

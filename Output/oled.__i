@@ -1,0 +1,1 @@
+"Common\src\oled.c" LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\oled.lst) OBJECT(.\Output\oled.obj)

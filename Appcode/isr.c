@@ -18,16 +18,16 @@
 ** 备    注: 
 ********************喵呜实验室版权所有**************************
 ***************************************************************/
+unsigned short SoftTimer[5]={0,0,0,0,0};
+
 void Timer1_Update(void) interrupt  3		//125hz
 { 
-	
-	
+	if(SoftTimer[0])SoftTimer[0]--;
+	if(SoftTimer[1])SoftTimer[1]--;
+	if(SoftTimer[2])SoftTimer[2]--;
+	if(SoftTimer[3])SoftTimer[3]--;
+	if(SoftTimer[4])SoftTimer[4]--;
 }
 
-void Timer0_Update(void) interrupt  1
-{
-    
-//	g_ucSpeedCountCarry++;
-//	LED2=~LED2;
-}
+
 				 

@@ -27,3 +27,7 @@ unsigned char GetADCResult(unsigned char ch)
 
     return ADC_RES;                 //·µ»ØADC½á¹û
 }
+
+
+
+

@@ -1,0 +1,93 @@
+C51 COMPILER V9.00   BATTERY                                                               12/12/2016 14:51:46 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE BATTERY
+OBJECT MODULE PLACED IN .\Output\battery.obj
+COMPILER INVOKED BY: D:\KeilC51\C51\BIN\C51.EXE Common\src\battery.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP
+                    -;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\battery.lst) OBJECT(.\Output\battery.obj)
+
+line level    source
+
+   1          #include "includes.h"
+   2          
+   3          static char LittleBuzzLowPowerAlarm=0;
+   4          
+   5          
+   6          float RemoteBatteryChecker(void)
+   7          {
+   8   1              float fValue;
+   9   1              fValue = GetADCResult(1);                                       //参考电压5.02V 检测max4.3V min3.0V
+  10   1              fValue = fValue / 256.0 * 5.02 ;                                
+  11   1              return fValue;
+  12   1      }
+  13          
+  14          extern char RxBuf[];
+  15                                                                           
+  16          /*
+  17                  满足以下条件即告警标志置1
+  18                  1、连续检测到10次电压低于3.1V，
+  19                  2、NRF数据传输正常以及遥控器解锁
+  20          
+  21                  建议调用周期 500ms
+  22          */
+  23          extern unsigned char NRFConnectStat;
+  24          extern unsigned char g_Lock;
+  25          void LittleBuzzBatteryChecker(void)
+  26          {
+  27   1              char  volt = 0;
+  28   1              static unsigned char Cnt=0;
+  29   1              
+  30   1              volt = RxBuf[0];        // LittleBuzz battery voltage  x10
+  31   1      
+  32   1              if (volt < 31){
+  33   2                      Cnt++;
+  34   2                      if((Cnt>=10)&&(NRFConnectStat == 1)&&(g_Lock == 0))
+  35   2                              LittleBuzzLowPowerAlarm = 1;
+  36   2              }
+  37   1              else{
+  38   2                      Cnt = 0;
+  39   2              }
+  40   1      }
+  41          
+  42          /*
+  43                  遥控器上锁或nrf数据传输停止2秒以上将停止低压告警
+  44                  
+  45                  建议调用周期 250ms
+  46          */
+  47          void LittleBuzzLowPowerBell(void)
+  48          {
+  49   1              if(g_Lock == 1)
+  50   1                      LittleBuzzLowPowerAlarm = 0;
+  51   1              if(NRFConnectStat == 0)
+  52   1                      LittleBuzzLowPowerAlarm = 0;
+  53   1              
+  54   1              if(LittleBuzzLowPowerAlarm == 1){
+C51 COMPILER V9.00   BATTERY                                                               12/12/2016 14:51:46 PAGE 2   
+
+  55   2                      BELL = ~BELL;
+  56   2              }
+  57   1              else{
+  58   2                      BELL = 0;
+  59   2              }
+  60   1      }
+  61          
+  62          int IsLittleBuzzLowPowerAlarm(void)
+  63          {
+  64   1              return LittleBuzzLowPowerAlarm;
+  65   1      }
+  66          
+  67          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    126    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -2,7 +2,8 @@
 #include <intrins.h>
 #include <NRF24L0102.H>
 #include "led.h"
-uchar TxBuf[20]={0};
+unsigned char TxBuf[20]={0};
+char RxBuf[20]={0};
 //*********************************************NRF24L01*************************************
 #define TX_ADR_WIDTH    5   	// 5 uints TX address width
 #define RX_ADR_WIDTH    5   	// 5 uints RX address width
@@ -60,7 +61,7 @@ sbit  TX_FULL =sta^0;
 /******************************************************************************************
 /*延时函数
 /******************************************************************************************/
-void inerDelay_us(unsigned char n)
+void inerDelay_us(unsigned short n)
 {
 	for(;n>0;n--)
 		_nop_();
@@ -72,7 +73,7 @@ void init_NRF24L01(void)
 {
     inerDelay_us(1200);
  	CE=0;    // chip enable
- 	CSN=1;   // Spi  disable 
+ 	CSN=1;   // Spi disable 
  	SCK=0;   // 
 	SPI_Write_Buf(WRITE_REG + TX_ADDR, TX_ADDRESS, TX_ADR_WIDTH);    // 写本地地址	
 	SPI_Write_Buf(WRITE_REG + RX_ADDR_P0, RX_ADDRESS, RX_ADR_WIDTH); // 写接收端地址
@@ -86,23 +87,9 @@ void init_NRF24L01(void)
 	SPI_RW_Reg(WRITE_REG + RF_CH, 0);        //   设置信道工作为2.4GHZ，收发必须一致
 	SPI_RW_Reg(WRITE_REG + RX_PW_P0, RX_PLOAD_WIDTH); //设置接收数据长度，本次设置为20字节
 	SPI_RW_Reg(WRITE_REG + RF_SETUP, 0x07);   		//设置发射速率为1MB/S，发射功率为最大值+7dB，由于有X2401L功放，实际+21dbm输出
-  SPI_RW_Reg(WRITE_REG + CONFIG2, 0x0e); 
+ 	SPI_RW_Reg(WRITE_REG + CONFIG2, 0x7c); 
 }
-void init_NRF24L012(void)
-{
-    inerDelay_us(1200);
- 	CE=0;    // chip enable
- 	CSN=1;   // Spi  disable 
- 	SCK=0;   // 
-	SPI_Write_Buf(WRITE_REG + TX_ADDR, TX_ADDRESS, TX_ADR_WIDTH);    // 写本地地址	
-	SPI_Write_Buf(WRITE_REG + RX_ADDR_P0, RX_ADDRESS, RX_ADR_WIDTH); // 写接收端地址
-	SPI_RW_Reg(WRITE_REG + EN_AA, 0x01);      //  频道0自动	ACK应答允许	
-	SPI_RW_Reg(WRITE_REG + EN_RXADDR, 0x01);  //  允许接收地址只有频道0，如果需要多频道可以参考Page21  
-	SPI_RW_Reg(WRITE_REG + RF_CH, 0x40);        //   设置信道工作为2.4GHZ，收发必须一致
-	SPI_RW_Reg(WRITE_REG + RX_PW_P0, RX_PLOAD_WIDTH); //设置接收数据长度，本次设置为32字节
-	SPI_RW_Reg(WRITE_REG + RF_SETUP, 0x27);   		//设置发射速率为1MB/S，发射功率为最大值+7dB，由于有X2401L功放，实际+21dbm输出
-  SPI_RW_Reg(WRITE_REG + CONFIG2, 0x5e); 
-}
+
 /****************************************************************************************************
 /*函数：uint SPI_RW(uint uchar)
 /*功能：NRF24L01的SPI写时序
@@ -194,24 +181,39 @@ uint SPI_Write_Buf(uchar reg, uchar *pBuf, uchar uchars)
 void SetRX_Mode(void)
 {
 	CE=0;
-	SPI_RW_Reg(WRITE_REG + CONFIG2, 0x5f);   		// IRQ收发完成中断响应，16位CRC	，主接收
+	SPI_RW_Reg(WRITE_REG+STATUS,0xff); 
+	SPI_RW_Reg(FLUSH_RX, 0x00);
+	SPI_RW_Reg(WRITE_REG + CONFIG2, 0x7f);   		// IRQ收发完成中断响应，16位CRC	，主接收
 	CE = 1; 
-	inerDelay_us(1560);    //目的是为了让无线模块有足够的时间接收到数据
+	inerDelay_us(2600);    //目的是为了让无线模块有足够的时间接收到数据
+}
+
+void SetTX_Mode(void)
+{
+	CE=0;
+	SPI_RW_Reg(WRITE_REG+STATUS,0xff); 
+	SPI_RW_Reg(FLUSH_TX, 0x00);
+	SPI_RW_Reg(WRITE_REG + CONFIG2, 0x7e);   		// IRQ收发完成中断响应，16位CRC	，主接收
+	CE = 1; 
+	inerDelay_us(2600);    //目的是为了让无线模块有足够的时间接收到数据
 }
 /******************************************************************************************************/
 /*函数：unsigned char nRF24L01_RxPacket(unsigned char* rx_buf)
 /*功能：数据读取后放如rx_buf接收缓冲区中
 /******************************************************************************************************/
-void nRF24L01_RxPacket(unsigned char* rx_buf)
+int nRF24L01_RxPacket(unsigned char* rx_buf)
 {
 	sta=SPI_Read(STATUS);	
+	SPI_RW_Reg(WRITE_REG+STATUS,sta);   //接收到数据后RX_DR,TX_DS,MAX_PT都置高为1，通过写1来清楚中断标志
 	if(RX_DR)				
 	{
-	  CE = 0; 		
+	  	CE = 0; 		
 		SPI_Read_Buf(RD_RX_PLOAD,rx_buf,TX_PLOAD_WIDTH);	
+		SPI_RW_Reg(FLUSH_RX, 0x00);
+		CE=1;
+		return 1;
 	}
-	SPI_RW_Reg(WRITE_REG+STATUS,sta);   //接收到数据后RX_DR,TX_DS,MAX_PT都置高为1，通过写1来清楚中断标志
-	CE=1;
+	return 0;
 }
 /***********************************************************************************************************
 /*函数：void nRF24L01_TxPacket(unsigned char * tx_buf)
@@ -221,10 +223,11 @@ void nRF24L01_TxPacket(unsigned char * tx_buf)
 {
 	SPI_RW_Reg(WRITE_REG+STATUS,0xff);
 	SPI_RW_Reg(0xE1,0xff);
-	CE=0;		
+	CE=0;	
+	SPI_Write_Buf(WRITE_REG + RX_ADDR_P0, RX_ADDRESS, RX_ADR_WIDTH); 
 	SPI_Write_Buf(WR_TX_PLOAD, tx_buf, TX_PLOAD_WIDTH); 			       	
 	CE=1;		 
-	inerDelay_us(10);   //CE高电平大于10us才能进入发射模式
+	inerDelay_us(200);   //CE高电平大于10us才能进入发射模式
 }
 
 //检测24L01是否存在

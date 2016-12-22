@@ -1,0 +1,1 @@
+"Common\src\battery.c" LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\battery.lst) OBJECT(.\Output\battery.obj)

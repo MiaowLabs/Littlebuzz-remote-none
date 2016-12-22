@@ -347,11 +347,6 @@
           <GroupName>appcode</GroupName>
           <Files>
             <File>
-              <FileName>carstand.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Appcode\carstand.c</FilePath>
-            </File>
-            <File>
               <FileName>isr.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Appcode\isr.c</FilePath>
@@ -360,6 +355,11 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Appcode\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Appcode\display.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -382,19 +382,9 @@
           <GroupName>common</GroupName>
           <Files>
             <File>
-              <FileName>i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Common\src\i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Common\src\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Common\src\mpu6050.c</FilePath>
             </File>
             <File>
               <FileName>nrf24l0102.c</FileName>
@@ -402,9 +392,14 @@
               <FilePath>.\Common\src\nrf24l0102.c</FilePath>
             </File>
             <File>
-              <FileName>outputdata.c</FileName>
+              <FileName>oled.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Common\src\outputdata.c</FilePath>
+              <FilePath>.\Common\src\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Common\src\battery.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -425,11 +420,6 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Driver\src\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Driver\src\pwm.c</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>

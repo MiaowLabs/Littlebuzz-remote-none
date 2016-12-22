@@ -1,0 +1,1 @@
+"Driver\src\uart.c" LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\uart.lst) OBJECT(.\Output\uart.obj)
