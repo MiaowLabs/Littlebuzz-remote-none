@@ -13,3 +13,4 @@
 ".\Output\STARTUP.obj" 
 TO ".\Output\Remote" 
 PRINT(".\Listing\Remote.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 

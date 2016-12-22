@@ -1,10 +1,10 @@
-C51 COMPILER V9.00   NRF24L0102                                                            12/09/2016 18:46:15 PAGE 1   
+C51 COMPILER V9.00   NRF24L0102                                                            12/22/2016 15:12:21 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE NRF24L0102
 OBJECT MODULE PLACED IN .\Output\nrf24l0102.obj
-COMPILER INVOKED BY: D:\KeilC51\C51\BIN\C51.EXE Common\src\nrf24l0102.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\
-                    -BSP;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\nrf24l0102.lst) OBJECT(.\Output\nrf24l0102.obj)
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE Common\src\nrf24l0102.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP
+                    -;.\Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\nrf24l0102.lst) OBJECT(.\Output\nrf24l0102.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   50          {
   51   1              unsigned int i;
   52   1              for(i=0; i<s; i++);
-C51 COMPILER V9.00   NRF24L0102                                                            12/09/2016 18:46:15 PAGE 2   
+C51 COMPILER V9.00   NRF24L0102                                                            12/22/2016 15:12:21 PAGE 2   
 
   53   1              for(i=0; i<s; i++);
   54   1      }
@@ -126,7 +126,7 @@ line level    source
  111   1      }
  112          /****************************************************************************************************
  113          /*函数：uchar SPI_Read(uchar reg)
-C51 COMPILER V9.00   NRF24L0102                                                            12/09/2016 18:46:15 PAGE 3   
+C51 COMPILER V9.00   NRF24L0102                                                            12/22/2016 15:12:21 PAGE 3   
 
  114          /*功能：NRF24L01的SPI时序
  115          /****************************************************************************************************/
@@ -190,7 +190,7 @@ line level    source
  172   1              for(uchar_ctr=0; uchar_ctr<uchars; uchar_ctr++) //
  173   1                      SPI_RW(*pBuf++);
  174   1              CSN = 1;           //关闭SPI
-C51 COMPILER V9.00   NRF24L0102                                                            12/09/2016 18:46:15 PAGE 4   
+C51 COMPILER V9.00   NRF24L0102                                                            12/22/2016 15:12:21 PAGE 4   
 
  175   1              return(status);    // 
  176   1      }
@@ -254,7 +254,7 @@ line level    source
  232          
  233          //检测24L01是否存在
  234          //返回值:0，成功;1，失败        
-C51 COMPILER V9.00   NRF24L0102                                                            12/09/2016 18:46:15 PAGE 5   
+C51 COMPILER V9.00   NRF24L0102                                                            12/22/2016 15:12:21 PAGE 5   
 
  235          unsigned char NRF24L01_Check(void)
  236                  {

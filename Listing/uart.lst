@@ -1,10 +1,10 @@
-C51 COMPILER V9.00   UART                                                                  12/12/2016 14:51:46 PAGE 1   
+C51 COMPILER V9.00   UART                                                                  12/22/2016 15:12:22 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE UART
 OBJECT MODULE PLACED IN .\Output\uart.obj
-COMPILER INVOKED BY: D:\KeilC51\C51\BIN\C51.EXE Driver\src\uart.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\
-                    -Appcode;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\uart.lst) OBJECT(.\Output\uart.obj)
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE Driver\src\uart.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\App
+                    -code;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\uart.lst) OBJECT(.\Output\uart.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   52          ** 作　者:   喵呜实验室
   53          ** 淘  宝：  Http://miaowlabs.taobao.com
   54          ** 日　期:   2014年08月01日
-C51 COMPILER V9.00   UART                                                                  12/12/2016 14:51:46 PAGE 2   
+C51 COMPILER V9.00   UART                                                                  12/22/2016 15:12:22 PAGE 2   
 
   55          ***************************************************************/
   56          void UART1SendByte(unsigned char TxD1)  

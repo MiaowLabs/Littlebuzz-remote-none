@@ -1,10 +1,10 @@
-C51 COMPILER V9.00   MAIN                                                                  12/12/2016 14:51:45 PAGE 1   
+C51 COMPILER V9.00   MAIN                                                                  12/22/2016 15:12:21 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN .\Output\main.obj
-COMPILER INVOKED BY: D:\KeilC51\C51\BIN\C51.EXE Appcode\main.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\App
-                    -code;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\main.lst) OBJECT(.\Output\main.obj)
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE Appcode\main.c LARGE BROWSE INCDIR(.\Common\inc;.\Driver\inc;.\BSP;.\Appcod
+                    -e;.\Startup) DEBUG OBJECTEXTEND PRINT(.\Listing\main.lst) OBJECT(.\Output\main.obj)
 
 line level    source
 
@@ -57,12 +57,12 @@ line level    source
   47   1              SW1=SW2=SW3=SW4=SW5=SW6=SW10=SW11=1;
   48   1              Delaynms(10);
   49   1              g_RxOffset=GetADCResult(5)-128;  //0-255
-  50   1          Delaynms(10);
+  50   1              Delaynms(10);
   51   1              g_RyOffset=GetADCResult(4)-128;  //记录上电时摇杆的数据作为中位修正，因为摇杆中位要为128即256/2      
   52   1              Delaynms(10);
   53   1              g_LxOffset=GetADCResult(2)-128;  
   54   1              Delaynms(10);
-C51 COMPILER V9.00   MAIN                                                                  12/12/2016 14:51:45 PAGE 2   
+C51 COMPILER V9.00   MAIN                                                                  12/22/2016 15:12:21 PAGE 2   
 
   55   1              while(NRF24L01_Check())//检测不到24L01
   56   1              {
@@ -86,7 +86,7 @@ line level    source
   74   2                      g_Lefty= GetADCResult(3); //油门                                
   75   2                      Delaynms(1);                                                            
   76   2                      g_Righty=GetADCResult(5);                       
-  77   2              Delaynms(1);
+  77   2                      Delaynms(1);
   78   2                      g_Rightx=GetADCResult(4);                       
   79   2                      Delaynms(1);
   80   2              
@@ -126,7 +126,7 @@ line level    source
  114   4                                      g_LockAction = 1;
  115   4                                      SoftTimer[1] = 100;
  116   4                              }
-C51 COMPILER V9.00   MAIN                                                                  12/12/2016 14:51:45 PAGE 3   
+C51 COMPILER V9.00   MAIN                                                                  12/22/2016 15:12:21 PAGE 3   
 
  117   3                              else{
  118   4                                      if((!SoftTimer[1])&&(g_Lock==1)){
@@ -190,48 +190,47 @@ line level    source
  176   2                      if(nRF24L01_RxPacket(RxBuf))
  177   2                      {
  178   3                              NRFConnectCnt = 0;
-C51 COMPILER V9.00   MAIN                                                                  12/12/2016 14:51:45 PAGE 4   
+C51 COMPILER V9.00   MAIN                                                                  12/22/2016 15:12:21 PAGE 4   
 
  179   3                              NRFConnectStat  = 1;
  180   3                      }
  181   2      
  182   2                  /******************* 0.05s 定时任务 *******************/
  183   2                      if(SoftTimer[2]==0){
- 184   3                              char i=0;
- 185   3                              SoftTimer[2] = 5;
- 186   3                              ShowHomePage();
- 187   3                              if (NRFConnectCnt < 40) NRFConnectCnt++;
- 188   3                              else{
- 189   4                                      NRFConnectStat = 0;
- 190   4                              }
- 191   3                  }
- 192   2      
- 193   2                      /****************** 0.25s 定时任务 *******************/
- 194   2                      if(SoftTimer[3]==0){
- 195   3                              SoftTimer[3] = 25;
- 196   3      
- 197   3                              if(g_Lock==1)
- 198   3                                      LED1 = ~LED1;
- 199   3                              else
- 200   3                                  LED1 = 0;
- 201   3                              
- 202   3                              LittleBuzzLowPowerBell();
- 203   3                      }
- 204   2                      
- 205   2                  /******************** 0.5s 定时任务 *******************/
- 206   2                      if(SoftTimer[4]==0){
- 207   3                              SoftTimer[4] = 50;
- 208   3                              LittleBuzzBatteryChecker();
- 209   3                  }
- 210   2              }
- 211   1      }
- 212          
+ 184   3                              SoftTimer[2] = 5;
+ 185   3                              ShowHomePage();
+ 186   3                              if (NRFConnectCnt < 40) NRFConnectCnt++;
+ 187   3                              else{
+ 188   4                                      NRFConnectStat = 0;
+ 189   4                              }
+ 190   3                  }
+ 191   2      
+ 192   2                      /****************** 0.25s 定时任务 *******************/
+ 193   2                      if(SoftTimer[3]==0){
+ 194   3                              SoftTimer[3] = 25;
+ 195   3      
+ 196   3                              if(g_Lock==1)
+ 197   3                                      LED1 = ~LED1;
+ 198   3                              else
+ 199   3                                  LED1 = 0;
+ 200   3                              
+ 201   3                              LittleBuzzLowPowerBell();
+ 202   3                      }
+ 203   2                      
+ 204   2                  /******************** 0.5s 定时任务 *******************/
+ 205   2                      if(SoftTimer[4]==0){
+ 206   3                              SoftTimer[4] = 50;
+ 207   3                              LittleBuzzBatteryChecker();
+ 208   3                  }
+ 209   2              }
+ 210   1      }
+ 211          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    945    ----
+   CODE SIZE        =    941    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     24       1
+   XDATA SIZE       =     24    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

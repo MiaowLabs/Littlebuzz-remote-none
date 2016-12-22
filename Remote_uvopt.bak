@@ -174,10 +174,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>4</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>184</TopLine>
-      <CurrentLine>191</CurrentLine>
+      <TopLine>190</TopLine>
+      <CurrentLine>190</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Appcode\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -188,10 +188,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>109</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>47</TopLine>
-      <CurrentLine>68</CurrentLine>
+      <TopLine>69</TopLine>
+      <CurrentLine>69</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Appcode\display.c</PathWithFileName>
       <FilenameWithoutPath>display.c</FilenameWithoutPath>
@@ -274,8 +274,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>218</TopLine>
-      <CurrentLine>237</CurrentLine>
+      <TopLine>226</TopLine>
+      <CurrentLine>226</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Common\src\oled.c</PathWithFileName>
       <FilenameWithoutPath>oled.c</FilenameWithoutPath>
@@ -351,7 +351,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>17</TopLine>
+      <TopLine>1</TopLine>
       <CurrentLine>17</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Driver\src\timer.c</PathWithFileName>
@@ -500,7 +500,7 @@
 
   <AlienFiles>
     <PathWithFilename>E:\喵呜项目\四轴飞行器\Littlebuzz-remote-none\COMMON\INC\NRF24L0102.H</PathWithFilename>
-    <TopLine>8</TopLine>
+    <TopLine>1</TopLine>
     <CurrentLine>11</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
@@ -1969,8 +1969,14 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>9</ActiveTab>
+      <ActiveTab>8</ActiveTab>
       <Documents>
+        <Doc>
+          <Name>.\Common\src\oled.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>226</TopLine>
+          <CurrentLine>226</CurrentLine>
+        </Doc>
         <Doc>
           <Name>.\Common\src\led.c</Name>
           <ColumnNumber>0</ColumnNumber>
@@ -1997,9 +2003,9 @@
         </Doc>
         <Doc>
           <Name>.\Appcode\display.c</Name>
-          <ColumnNumber>109</ColumnNumber>
-          <TopLine>47</TopLine>
-          <CurrentLine>68</CurrentLine>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>69</TopLine>
+          <CurrentLine>69</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\COMMON\INC\BMP.H</Name>
@@ -2015,21 +2021,15 @@
         </Doc>
         <Doc>
           <Name>.\Appcode\main.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>184</TopLine>
-          <CurrentLine>191</CurrentLine>
+          <ColumnNumber>4</ColumnNumber>
+          <TopLine>190</TopLine>
+          <CurrentLine>190</CurrentLine>
         </Doc>
         <Doc>
           <Name>APPCODE\INCLUDES.H</Name>
           <ColumnNumber>0</ColumnNumber>
           <TopLine>15</TopLine>
           <CurrentLine>34</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\Common\src\oled.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>218</TopLine>
-          <CurrentLine>237</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\BSP\IOCONFIG.H</Name>
@@ -2046,13 +2046,13 @@
         <Doc>
           <Name>.\Driver\src\timer.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>17</TopLine>
+          <TopLine>1</TopLine>
           <CurrentLine>17</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\COMMON\INC\NRF24L0102.H</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>8</TopLine>
+          <TopLine>1</TopLine>
           <CurrentLine>11</CurrentLine>
         </Doc>
         <Doc>
